@@ -1,0 +1,4 @@
+interface:
+  display_name: "科研复盘"
+  short_description: "基于研究记录整理周报、单假设复盘与结果对比，保留证据边界和修正链"
+  default_prompt: "使用 $weekly-retrospective 按指定范围复盘研究记录，给出精简证据表、反例和结论。"

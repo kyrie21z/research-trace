@@ -1,0 +1,5 @@
+{
+  "foundation": "\\b(?:TASK[ -]DEF|SPLIT|MAPPING|IDENTITY[ -]EVAL|SCHEMA)\\b|任务定义|划分|评测协议",
+  "retrieval": "\\b(?:RETRIEVAL|REGISTRY|AR|BIAR|TF[ -]?IDF|BM25|LEVEN\\w*|CANDIDATE|NOEOS|EOS)\\b|检索|重排",
+  "str": "\\b(?:STR|MDIFF\\w*|GLYPH|CLIP|SEMANTIC|ATTENTION|CODEBOOK|SEMOFF)\\b|局部语义|语义增强|字形"
+}
