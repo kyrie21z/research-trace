@@ -1,0 +1,4 @@
+interface:
+  display_name: "科研留痕"
+  short_description: "跨项目建立研究档案，追溯实验依据、负结果、路线决定与结论修正"
+  default_prompt: "使用 $research-trace 为当前项目建立或维护科研留痕机制，复用已有规则并保留证据与修正关系。"
