@@ -1,6 +1,6 @@
 # research-trace
 
-两个并列、可单独安装的科研技能：留痕保存依据，复盘综合证据。
+两个并列、按项目安装的科研技能：留痕保存依据，复盘综合证据。
 
 | 技能 | 职责 | 入口 |
 |---|---|---|
@@ -13,27 +13,42 @@ skills/
   weekly-retrospective/  # 复盘流程、提取工具、精简模板、回归测试
 ```
 
-## 安装
+## 项目级安装
 
-克隆到普通工作目录，然后分别复制所需技能到用户技能目录；仓库根目录不再是一个技能。
+将所需技能放入目标项目的 `.agents/skills/`，随项目管理其规则与适配；不安装到 `~/.codex/skills/` 或其他用户级技能目录。
+
+先克隆本仓库到普通工作目录，再进入目标项目执行复制（替换示例路径）：
 
 ```bash
-git clone https://github.com/kyrie21z/research-trace.git
-cd research-trace
-research_skill_dir="${CODEX_HOME:-$HOME/.codex}/skills"
-mkdir -p "$research_skill_dir"
-# 每个目标目录必须不存在，已有安装先保留修改并人工合并。
-if [ ! -e "$research_skill_dir/research-record" ]; then
-  cp -R skills/research-record "$research_skill_dir/research-record"
-fi
-if [ ! -e "$research_skill_dir/weekly-retrospective" ]; then
-  cp -R skills/weekly-retrospective "$research_skill_dir/weekly-retrospective"
-fi
+git clone https://github.com/kyrie21z/research-trace.git /path/to/research-trace
+cd /path/to/your-project
+research_source_dir="/path/to/research-trace"
+mkdir -p .agents/skills
+for research_skill in research-record weekly-retrospective; do
+  if [ -e ".agents/skills/$research_skill" ]; then
+    printf '已存在，保留并人工合并：%s\n' "$research_skill"
+  else
+    cp -R "$research_source_dir/skills/$research_skill" ".agents/skills/$research_skill"
+  fi
+done
 ```
 
-新会话加载安装后的技能；若项目已有同名技能，先比较项目版与用户版并选择适用版本，避免无意覆盖项目适配。
+项目内布局：
 
-旧版用户级 `research-trace` 技能现改名为 `research-record`，仓库名称保持不变；更新安装后将旧技能移出发现目录留作备份，并更新自己的调用语句，旧会话上下文不会自动撤回。
+```text
+<your-project>/
+  .agents/skills/research-record/
+  .agents/skills/weekly-retrospective/
+  docs/research/                    # 接入留痕机制后生成，复用已有档案
+```
+
+在目标项目中新建会话加载技能；已有同名项目技能时先保留修改，再按需合并，复制操作不会自动初始化研究档案。
+
+## 从旧版全局安装迁移
+
+旧技能 `research-trace` 已改名为 `research-record`，仓库名称保持不变；先核对旧文件与项目适配，将需要的版本迁入目标项目 `.agents/skills/`，再把用户级旧副本移到技能发现目录之外备份。
+
+若已有项目版本，先比较内容再合并，不覆盖现有规则；项目安装与全局撤出完成后核对文件及新会话发现来源，旧会话中已经注入的说明不会自动消失。
 
 ## 使用
 
